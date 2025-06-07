@@ -2,11 +2,11 @@
 # 1. File Creation and Permission Management
 # ========================================
 
-### touch myfile.txt                                                 # Create a file  
-### ls -l myfile.txt                                                 # Check current permissions  
-### chmod u=rwx,g=rx,o=r myfile.txt                                  # Set permissions: Owner (rwx), Group (rx), Others (r)
-### chmod 754 myfile.txt                                             # Equivalent numeric permissions
-### ls -l myfile.txt                                                 # Verify changes
+### touch myfile.txt <tab><tab># Create a file  
+### ls -l myfile.txt                                          <tab><tab>       # Check current permissions  
+### chmod u=rwx,g=rx,o=r myfile.txt                             <tab><tab>     # Set permissions: Owner (rwx), Group (rx), Others (r)
+### chmod 754 myfile.txt                                        <tab><tab>     # Equivalent numeric permissions
+### ls -l myfile.txt                                            <tab><tab>     # Verify changes
 
 # ========================================
 # 2. Basic Linux Commands for File & Directory Manipulation

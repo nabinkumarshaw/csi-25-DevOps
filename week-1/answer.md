@@ -2,23 +2,23 @@
 # 1. File Creation and Permission Management
 # ========================================
 
-###touch myfile.txt                          # Create a file  
-###ls -l myfile.txt                          # Check current permissions  
-###chmod u=rwx,g=rx,o=r myfile.txt           # Set permissions: Owner (rwx), Group (rx), Others (r)
-###chmod 754 myfile.txt                      # Equivalent numeric permissions
-###ls -l myfile.txt                          # Verify changes
+### touch myfile.txt                          # Create a file  
+### ls -l myfile.txt                          # Check current permissions  
+### chmod u=rwx,g=rx,o=r myfile.txt           # Set permissions: Owner (rwx), Group (rx), Others (r)
+### chmod 754 myfile.txt                      # Equivalent numeric permissions
+### ls -l myfile.txt                          # Verify changes
 
 # ========================================
 # 2. Basic Linux Commands for File & Directory Manipulation
 # ========================================
 
-###mkdir demoFolder                          # Create a directory
-###cd demoFolder                             # Change into the directory
-###touch file1.txt file2.txt                 # Create multiple files
-###ls                                        # List files
-###rm file2.txt                              # Delete file2.txt
-###cd ..                                     # Go back to parent directory
-###rm -r demoFolder                          # Remove directory recursively
+### mkdir demoFolder                          # Create a directory
+### cd demoFolder                             # Change into the directory
+### touch file1.txt file2.txt                 # Create multiple files
+### ls                                        # List files
+### rm file2.txt                              # Delete file2.txt
+### cd ..                                     # Go back to parent directory
+### rm -r demoFolder                          # Remove directory recursively
 
 # ========================================
 # 3. Directory Navigation and File Movement

@@ -1,28 +1,48 @@
-Celebal Technology Summer Internship 2025-DevOps 🚀
-Overview ⬇️
-This repository contains a record of my DevOps internship at Celebal Technologies. It documents my journey, including everything I have learned, the tasks I was assigned, and the corresponding outputs I have produced. The purpose of this repository is to showcase my progress and contributions during the internship period.
+# 📘 DevOps Internship at Celebal Technologies
 
-Contents ⬇️
-The repository is organized as follows:
+## 📌 Overview
 
-➡️ Documentation
-This directory holds all the important documentation related to the DevOps internship. It includes guides, tutorials, and any other relevant materials that I found useful throughout the internship.
+This repository contains a detailed record of my **DevOps internship at Celebal Technologies**.  
+It documents my journey—everything I’ve learned, the tasks I was assigned, and the corresponding outputs I produced.  
+The purpose of this repository is to **showcase my progress, contributions, and learnings** during the internship period.
 
-➡️ Learning
-This directory contains subdirectories corresponding to different topics and concepts I have learned during the internship. Each subdirectory includes notes, code snippets, and references specific to that topic.
+---
 
-➡️ Tasks
-This directory consists of the tasks I was assigned during the internship. Each task is contained in a separate subdirectory, labeled numerically or with a descriptive name.
+## 📂 Contents
 
-Learning ⬇️
-The "Learning" directory contains subdirectories for each topic or concept I studied during the internship. Some of the topics covered include:
+The repository is organized into the following main directories:
 
-What is DevOps?
-The Need for DevOps
-Basics of DevOps and CI/CD
-Benefits of DevOps
-DevOps Principles
-Assignment: Linux
-Conclusion ⬇️
-This repository serves as a comprehensive record of my DevOps internship at Celebal Technologies. It showcases my learning journey, the tasks I undertook, and the corresponding outputs I produced. Feel free to explore the repository to gain insights into the skills and knowledge I acquired during my DevOps internship.
+### 📄 Documentation
+Contains all important documentation related to the DevOps internship.  
+It includes guides, tutorials, and other relevant materials that I found useful during the internship.
 
+### 📚 Learning
+Includes subdirectories for each topic or concept learned during the internship.  
+Each subdirectory contains notes, code snippets, and references specific to that topic.
+
+### ✅ Tasks
+Consists of the tasks assigned during the internship.  
+Each task is in a separate subdirectory, labeled either numerically or descriptively.
+
+---
+
+## 🧠 Learning Topics
+
+The `Learning/` directory covers the following topics:
+
+- What is DevOps?
+- The Need for DevOps
+- Basics of DevOps and CI/CD
+- Benefits of DevOps
+- DevOps Principles
+- **Assignment: Linux**
+
+---
+
+## 🏁 Conclusion
+
+This repository serves as a **comprehensive record** of my DevOps internship at Celebal Technologies.  
+It showcases my learning journey, tasks completed, and the outputs I produced.  
+Feel free to explore the repository to gain insights into the **skills and knowledge I acquired** during the internship.
+
+---

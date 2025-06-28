@@ -1,0 +1,29 @@
+# 🐳 Docker Hub
+
+# Login to Docker Hub
+docker login
+
+# Tag image for Docker Hub
+docker tag my-app username/my-app:v1
+
+# Push to Docker Hub
+docker push username/my-app:v1
+
+# Pull from Docker Hub
+docker pull username/my-app:v1
+
+
+# ☁️ Azure Container Registry (ACR)
+
+# Login to ACR using Azure CLI
+az acr login --name myregistry
+
+# Tag image for ACR
+docker tag my-app myregistry.azurecr.io/my-app:v1
+
+# Push to ACR
+docker push myregistry.azurecr.io/my-app:v1
+
+# Pull from ACR
+docker pull myregistry.azurecr.io/my-app:v1
+

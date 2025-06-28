@@ -1,0 +1,24 @@
+# Start a container
+docker start container_name
+
+# Exec into a running container
+docker exec -it container_name bash
+
+# View container logs
+docker logs container_name
+
+
+## Example Dockerfile:
+
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+EXPOSE 3000
+CMD ["node", "index.js"]
+
+
+## Build & Run:
+
+docker build -t my-node-app .
+docker run -p 3000:3000 my-node-app

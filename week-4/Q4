@@ -1,0 +1,20 @@
+## Q4: Create a Docker Image from Multiple Methods (Dockerfile and Running Containers)
+
+**Description:**  
+Demonstrate two different methods to create a Docker image—first using a Dockerfile, and second by committing a running container as a new image.
+
+### Answer:
+
+#### ✅ Method 1: Using Dockerfile
+
+```dockerfile
+# Dockerfile
+FROM python:3.10
+WORKDIR /app
+COPY . .
+RUN pip install -r requirements.txt
+CMD ["python", "app.py"]
+
+
+# Build the image from Dockerfile
+docker build -t my-python-app .

@@ -1,0 +1,26 @@
+# Push & Pull Image from DockerHub:
+
+# Login to Docker Hub
+docker login
+
+# Tag the image
+docker tag my-node-app username/my-node-app:v1
+
+# Push the image
+docker push username/my-node-app:v1
+
+# Pull the image
+docker pull username/my-node-app:v1
+
+
+## Multi-Stage Build Example:
+
+# Stage 1: Builder
+FROM node:18 as builder
+WORKDIR /app
+COPY . .
+RUN npm install && npm run build
+
+# Stage 2: Lightweight server
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html

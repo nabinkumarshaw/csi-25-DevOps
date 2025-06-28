@@ -1,0 +1,37 @@
+# Docker Fundamentals - Questions and Answers
+
+## Q1: Introduction to Containerization and Docker Fundamentals, Basic Commands
+
+**Description:**  
+Explain what containerization is and the role of Docker in it. List and explain the most commonly used Docker commands for beginners.
+
+### Answer:
+
+Containerization is the process of packaging software code along with its dependencies, libraries, and configuration files so it can run uniformly and consistently on any infrastructure. Docker is a platform that enables containerization by providing a simple way to build, share, and run containers.
+
+#### Basic Docker Commands:
+
+```bash
+# Check Docker version
+docker --version
+
+# Pull an image from Docker Hub
+docker pull nginx
+
+# List downloaded Docker images
+docker images
+
+# Run a Docker container
+docker run -d -p 8080:80 --name web nginx
+
+# List running containers
+docker ps
+
+# Stop a running container
+docker stop web
+
+# Remove a container
+docker rm web
+
+# Remove an image
+docker rmi nginx

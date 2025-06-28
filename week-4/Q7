@@ -1,0 +1,19 @@
+## Q7: Create a Docker Volume and Mount It to a Container
+
+**Description:**  
+Explain how to create a Docker volume and mount it to a container to persist data even after the container is removed.
+
+### Answer:
+
+```bash
+# Create a Docker volume
+docker volume create my-volume
+
+# Run a container and mount the volume
+docker run -d --name vol-nginx -v my-volume:/usr/share/nginx/html nginx
+
+# Inspect the volume
+docker volume inspect my-volume
+
+# Check data inside the container
+docker exec -it vol-nginx ls /usr/share/nginx/html

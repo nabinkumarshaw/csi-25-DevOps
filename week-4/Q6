@@ -1,0 +1,9 @@
+# Create a custom bridge network
+docker network create --driver bridge my-bridge-network
+
+# Run containers in the same network
+docker run -d --name container1 --network my-bridge-network nginx
+docker run -d --name container2 --network my-bridge-network alpine sleep 3600
+
+# Test inter-container communication
+docker exec -it container2 ping container1

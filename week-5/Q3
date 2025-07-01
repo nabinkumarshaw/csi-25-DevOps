@@ -1,0 +1,42 @@
+# Deploy an AKS Cluster Using the Azure Portal
+
+## 🎯 Objective:
+Provision an **AKS (Azure Kubernetes Service)** cluster via the **Azure Portal**, access the Kubernetes dashboard, and create role-based access control (RBAC) for multiple users.
+
+## 🛠️ Steps to Deploy AKS via Azure Portal
+
+### 1. Sign in to Azure Portal
+- Go to [https://portal.azure.com](https://portal.azure.com)
+
+---
+
+### 2. Create an AKS Cluster
+1. Search for **Kubernetes services** in the top search bar.
+2. Click **Create > Kubernetes Cluster**.
+3. Fill in the **Basics**:
+   - Subscription
+   - Resource group (create new or use existing)
+   - Cluster name
+   - Region
+4. Configure **Node Pools**:
+   - Choose VM size (e.g., Standard_DS2_v2)
+   - Set the node count (e.g., 1 or more)
+
+5. (Optional) Configure **Authentication**:
+   - Enable **RBAC**
+   - Choose **Azure AD integration** if needed
+
+6. (Optional) Networking, Monitoring, and Tags setup
+
+7. Click **Review + Create**, then **Create**
+
+---
+
+### 3. Access Kubernetes Dashboard
+Once deployed:
+1. Go to your AKS cluster in the portal
+2. Under **Cluster > Kubernetes Resources**, enable and access the **Dashboard**
+3. You can also run the following to open it locally (via Azure CLI):
+```bash
+az aks get-credentials --resource-group <resource-group> --name <aks-cluster-name>
+az aks browse

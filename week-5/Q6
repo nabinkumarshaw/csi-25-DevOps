@@ -1,0 +1,54 @@
+# Configure Application in AKS
+
+## 🎯 Objective:
+Deploy a containerized application to **Azure Kubernetes Service (AKS)** and expose it using different Kubernetes service types — focusing on **LoadBalancer** for public access.
+
+## 🛠️ Steps to Configure and Expose Application in AKS
+
+### 1. Get AKS Cluster Credentials
+Make sure you are logged into Azure CLI:
+```bash
+az login
+az aks get-credentials --resource-group <your-resource-group> --name <your-aks-cluster-name>
+
+### 2. Create Deployment YAML for Your App
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sample
+  template:
+    metadata:
+      labels:
+        app: sample
+    spec:
+      containers:
+      - name: sample-container
+        image: nginx
+        ports:
+        - containerPort: 80
+
+### 3. Expose the Deployment via LoadBalancer
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: sample
+  ports:
+  - port: 80
+    targetPort: 80
+
+### 4. Check the Service and Get External IP
+
+kubectl get svc
+
+

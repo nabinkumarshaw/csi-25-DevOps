@@ -1,7 +1,42 @@
 
-## Install Docker on All Nodes
+##1. Install Docker on All Nodes
 sudo apt update
 sudo apt install -y docker.io
 sudo systemctl enable docker
 sudo systemctl start docker
+
+##2. Install kubeadm, kubelet, and kubectl on All Nodes
+
+sudo apt update
+sudo apt install -y apt-transport-https ca-certificates curl
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt update
+sudo apt install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+
+##3. Initialize the Kubernetes Control Plane (on Master Node)
+
+sudo kubeadm init --pod-network-cidr=192.168.0.0/16
+
+##4. Configure kubectl on Master Node
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+##5. Apply a Network Plugin (e.g., Calico or Flannel)
+
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
+
+##6. Join Worker Nodes to the Cluster
+
+sudo kubeadm join <master-ip>:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+
+
+##7. Verify Cluster Nodes (on Master)
+
+kubectl get nodes
 

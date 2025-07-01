@@ -1,21 +1,15 @@
-# Kubernetes Cluster and AKS Tasks
+# Create a Kubernetes Cluster Using Minikube
 
-## 1. Create a Kubernetes Cluster Using Minikube
+## 🎯 Objective:
+Set up a local single-node Kubernetes cluster using **Minikube** and **kubectl**.
 
-### Resources:
-- [YouTube: Minikube Kubernetes Setup](https://www.youtube.com/watch?v=c4nTKMU6fBU)
-- [Kubernetes Docs](https://kubernetes.io/docs/home/)
+## 🛠️ Installation and Setup Steps:
 
-### Steps:
+### 1. Install kubectl
 ```bash
-# Step 1: Install Minikube and kubectl
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-sudo apt-get install -y kubectl
-
-# Step 2: Start the cluster
-minikube start
-
-# Step 3: Verify the cluster
-kubectl get nodes
-kubectl get pods -A
+sudo apt update
+sudo apt install -y apt-transport-https ca-certificates curl
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt update
+sudo apt install -y kubectl

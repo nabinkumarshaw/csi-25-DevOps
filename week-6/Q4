@@ -1,0 +1,47 @@
+# Q4. Managing Kubernetes with Azure Kubernetes Service (AKS)
+
+Azure Kubernetes Service (AKS) is a **managed Kubernetes platform** by Microsoft Azure that simplifies cluster setup, scaling, maintenance, and upgrades.
+
+---
+
+## 🛠️ Creating an AKS Cluster
+
+You can create an AKS cluster using Azure CLI:
+
+### ✅ Command:
+```bash
+az aks create \
+  --resource-group myResourceGroup \
+  --name myAKSCluster \
+  --node-count 2 \
+  --enable-addons monitoring \
+  --generate-ssh-keys
+
+
+YAML Example:
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+Full Snippet:
+
+containers:
+- name: my-app
+  image: my-app-image
+  ports:
+  - containerPort: 8080
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 10

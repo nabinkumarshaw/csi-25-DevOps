@@ -1,0 +1,34 @@
+# Q5. Configure Taints and Tolerations in Kubernetes
+
+## 🧠 What Are Taints and Tolerations?
+
+**Taints** are applied to nodes, marking them as unsuitable for certain pods unless those pods explicitly **tolerate** the taint.
+
+**Tolerations** are applied to pods, allowing them to **schedule on tainted nodes**.
+
+This mechanism helps control **pod placement** in the cluster.
+
+---
+
+## 🚫 Taint: Prevent Pods from Being Scheduled
+
+### ✅ Taint Syntax:
+```bash
+kubectl taint nodes <node-name> <key>=<value>:<effect>
+
+
+## Example Pod with Toleration:
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: database-pod
+spec:
+  containers:
+  - name: mysql
+    image: mysql
+  tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "database"
+    effect: "NoSchedule"

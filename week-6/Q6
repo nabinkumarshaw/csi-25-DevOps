@@ -1,0 +1,60 @@
+# Q6. Create and Attach PersistentVolumeClaims to Pods in Kubernetes
+
+## 🧠 Overview
+
+In Kubernetes, **PersistentVolumeClaims (PVCs)** allow pods to request persistent storage from **PersistentVolumes (PVs)**. This enables data to persist beyond pod lifecycles.
+
+To **use persistent storage**, you need to:
+
+1. Create a **PersistentVolume (PV)**.
+2. Create a **PersistentVolumeClaim (PVC)**.
+3. Attach the PVC to a **Pod** or **Deployment**.
+
+---
+
+## 📦 Step 1: Create a PersistentVolume (PV)
+
+### 🧾 Example: `pv.yaml`
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data
+
+## Example: pvc.yaml
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+## Example: pod-using-pvc.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: "/usr/share/nginx/html"
+      name: html-volume
+  volumes:
+  - name: html-volume
+    persistentVolumeClaim:
+      claimName: my-pvc

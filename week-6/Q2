@@ -1,0 +1,46 @@
+# Q2. Kubernetes Service Types
+
+In Kubernetes, a **Service** is an abstraction that defines a logical set of Pods and a policy by which to access them. Kubernetes provides multiple types of services to expose your application within or outside the cluster.
+
+---
+
+## 1️⃣ ClusterIP (Default)
+
+### 🔹 Description:
+- **ClusterIP** is the default Kubernetes service type.
+- It exposes the service on an internal IP in the cluster.
+- The service is **only reachable from within the cluster**.
+
+### 🔸 Use Cases:
+- Internal communication between microservices within the same Kubernetes cluster.
+
+### 🧾 YAML Example:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-clusterip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: demo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+
+## YAML Example:
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nodeport-service
+spec:
+  type: NodePort
+  selector:
+    app: demo
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080

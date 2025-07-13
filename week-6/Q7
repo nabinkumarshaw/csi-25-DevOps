@@ -1,0 +1,69 @@
+# Q7. Configure Health Probes and Autoscaling in Kubernetes (AKS)
+
+In Kubernetes, two critical aspects of maintaining application performance and availability are:
+
+1. **Health Probes**: Liveness and Readiness
+2. **Autoscaling**: Horizontal Pod Autoscaler (HPA)
+
+---
+
+## ✅ Part 1: Configuring Health Probes
+
+### 🔍 Liveness Probe
+
+**Purpose**: Checks if the application is **alive**.  
+If the probe fails, Kubernetes restarts the container.
+
+### 🧾 Liveness Probe YAML Example:
+```yaml
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+
+## Readiness Probe YAML Example:
+
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+
+## Usage in a Deployment YAML
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:latest
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10

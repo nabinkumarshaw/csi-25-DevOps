@@ -1,0 +1,52 @@
+## Q8: Configure and Use Azure Storage in AKS
+
+### ✅ Step 1: Create an Azure Storage Account
+
+az storage account create \
+  --name mystorageaccount \
+  --resource-group myResourceGroup \
+  --location eastus \
+  --sku Standard_LRS
+
+### ✅ Step 2: Create a Storage Class (Optional)
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: azure-disk-sc
+provisioner: kubernetes.io/azure-disk
+parameters:
+  storageaccounttype: Standard_LRS
+  kind: Managed
+
+### ✅ Step 3: Create PVC using Azure Storage
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azure-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: azure-disk-sc
+  resources:
+    requests:
+      storage: 5Gi
+
+### ✅ Step 4: Use PVC in a Pod
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-azure-storage
+spec:
+  containers:
+    - image: nginx
+      name: nginx
+      volumeMounts:
+        - mountPath: "/mnt/azure"
+          name: azure-vol
+  volumes:
+    - name: azure-vol
+      persistentVolumeClaim:
+        claimName: azure-pvc

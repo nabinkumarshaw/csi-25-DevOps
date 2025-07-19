@@ -1,0 +1,60 @@
+## Q1: Deploy Replica Set, Replication Controller, and Deployment in Kubernetes
+
+### ✅ Replication Controller (RC)
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rc-example
+spec:
+  replicas: 2
+  selector:
+    app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+✅ ReplicaSet (RS)
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-example
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+✅ Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-example
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest

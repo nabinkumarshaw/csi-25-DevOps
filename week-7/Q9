@@ -1,0 +1,19 @@
+## Q9: Configure Monitoring and Logging in AKS
+
+### ✅ Enable Monitoring in AKS
+
+az aks create \
+  --resource-group myResourceGroup \
+  --name myAKSCluster \
+  --enable-addons monitoring \
+  --workspace-resource-id "/subscriptions/<sub-id>/resourceGroups/<rg-name>/providers/Microsoft.OperationalInsights/workspaces/<workspace-name>"
+
+### ✅ Install kubectl tools for logging
+
+go install github.com/stern/stern@latest
+stern nginx
+
+kubectl logs <pod-name>
+
+kubectl top nodes
+kubectl top pods

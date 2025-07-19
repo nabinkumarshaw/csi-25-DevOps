@@ -1,0 +1,33 @@
+## Q6: Create and Attach Persistent Volume Claims (PVC) to Pods in Kubernetes
+
+✅ Step 1: Define a PersistentVolumeClaim (PVC)
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mypvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+## ✅ Step 2: Use the PVC in a Pod
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-attached-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: myvolume
+  volumes:
+    - name: myvolume
+      persistentVolumeClaim:
+        claimName: mypvc
+

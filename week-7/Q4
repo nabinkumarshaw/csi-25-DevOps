@@ -1,0 +1,36 @@
+## Q4: Managing Kubernetes with Azure Kubernetes Service (AKS)
+
+### ✅ Creating an AKS Cluster
+
+az aks create \
+  --resource-group myResourceGroup \
+  --name myAKSCluster \
+  --node-count 2 \
+  --enable-addons monitoring \
+  --generate-ssh-keys
+
+### ✅ Managing AKS Clusters
+az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
+
+az aks upgrade \
+  --resource-group myResourceGroup \
+  --name myAKSCluster \
+  --kubernetes-version <new-version>
+
+✅ Configuring Liveness and Readiness Probes
+
+Liveness Probe Example:
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+Readiness Probe Example:
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10

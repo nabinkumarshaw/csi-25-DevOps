@@ -1,0 +1,18 @@
+## Q5: Configure Taints and Tolerations in Kubernetes
+
+## ✅ What is a Toleration?
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: toleration-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  tolerations:
+    - key: "key"
+      operator: "Equal"
+      value: "value"
+      effect: "NoSchedule"
+

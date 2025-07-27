@@ -1,0 +1,24 @@
+# Configure Dashboard and Queries for Work Items
+
+
+## ✅ Steps to Configure
+
+1. Go to **Azure DevOps > Boards > Queries**.
+2. Click on **New Query**.
+3. Apply necessary filters:
+   - Example: `Assigned To`, `State`, `Work Item Type`, `Area Path`, etc.
+4. Click **Save As** to name and save your query.
+5. Go to **Dashboards** from the left panel.
+6. Click on **Edit** and then **Add a Widget**.
+7. Choose widgets like:
+   - `Query Results`
+   - `Chart for Work Items`
+   - `Sprint Overview`
+8. Configure the widget to point to your saved query.
+9. Save and share the dashboard with your team.
+
+## 📝 Notes
+- Queries help track work items like bugs, tasks, and user stories.
+- You can group, sort, and filter work items as needed.
+- Pinning them to a dashboard helps in real-time project tracking.
+

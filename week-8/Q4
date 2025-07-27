@@ -1,0 +1,39 @@
+# Create a Service Connection in Azure DevOps
+
+---
+
+## ✅ What is a Service Connection?
+
+A **Service Connection** in Azure DevOps allows your pipeline to connect and authenticate with external services like:
+- Azure subscriptions
+- Docker registries
+- GitHub or Bitbucket repositories
+- Kubernetes clusters (AKS)
+- AWS, GCP, etc.
+
+---
+
+## ✅ Steps to Create a Service Connection
+
+1. Navigate to **Project Settings** in Azure DevOps.
+2. Click on **Service connections** (under "Pipelines").
+3. Click **+ New service connection**.
+4. Choose the service type (e.g., Azure Resource Manager).
+5. Choose the authentication method:
+   - For Azure: Use **Service Principal (automatic)**.
+6. Grant access permissions to all pipelines (optional).
+7. Provide a recognizable **connection name**.
+8. Click **Verify and Save**.
+
+---
+
+## ✅ Example Use in YAML
+
+```yaml
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'My-Azure-Service-Connection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az group list

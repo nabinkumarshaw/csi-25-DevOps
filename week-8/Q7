@@ -1,0 +1,81 @@
+# Create a CI/CD Pipeline to Build and Push a Docker Image to ACR and Deploy to AKS
+
+---
+
+## ✅ Prerequisites
+
+- Azure Container Registry (ACR)
+- Azure Kubernetes Service (AKS) cluster
+- Dockerfile in your application repo
+- A service connection to Azure (with access to ACR and AKS)
+
+---
+
+## ✅ Steps to Implement the Pipeline
+
+### 1. Define the Pipeline (`azure-pipelines.yml`)
+
+```yaml
+trigger:
+- main
+
+variables:
+  imageName: 'myapp'
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildAndPush
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'ACR-Service-Connection'  # Define in service connections
+        repository: '$(imageName)'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          $(Build.BuildId)
+
+- stage: Deploy
+  jobs:
+  - deployment: DeployToAKS
+    environment: 'aks-environment'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Kubernetes@1
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              azureSubscription: 'My-Azure-Service-Connection'
+              azureResourceGroup: 'myResourceGroup'
+              kubernetesCluster: 'myAKSCluster'
+              namespace: 'default'
+              command: 'apply'
+              useConfigurationFile: true
+              configuration: 'manifests/deployment.yaml'
+
+## ✅ Deployment Manifest Example
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: myacr.azurecr.io/myapp:latest
+        ports:
+        - containerPort: 80
+

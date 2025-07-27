@@ -1,0 +1,45 @@
+# Apply Pre and Post-Deployment Approvers in the Release Pipeline
+
+---
+
+## ✅ What are Pre and Post-Deployment Approvals?
+
+Pre- and post-deployment approvals allow you to enforce **manual checks** before and after a deployment is performed in a specific stage of a release pipeline.
+
+- **Pre-deployment approval**: Required before the deployment starts.
+- **Post-deployment approval**: Required after the deployment completes successfully.
+
+---
+
+## ✅ Steps to Apply Approvals (Classic Release Pipeline)
+
+1. Go to **Pipelines > Releases**.
+2. Select or create a release pipeline.
+3. Under a stage (like Dev, QA, Prod), click the ⚡ **lightning bolt icon**.
+4. Configure **Pre-deployment conditions**:
+   - Enable "Pre-deployment approvals".
+   - Add user(s) or group(s) who must approve.
+5. Similarly, enable and configure **Post-deployment approvals**.
+6. Save the release pipeline.
+
+---
+
+## ✅ Example YAML-Based Manual Intervention
+
+While YAML pipelines don't directly support "approvers" like classic, you can simulate with **Environments and Checks**:
+
+1. Go to **Pipelines > Environments**, create a new environment.
+2. Add **Approvals and Checks** (e.g., Manual Approval).
+3. Reference the environment in your pipeline:
+
+```yaml
+stages:
+- stage: DeployToProd
+  jobs:
+  - deployment: DeployApp
+    environment: 'prod-environment'  # With approval check
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Deploying to Production...

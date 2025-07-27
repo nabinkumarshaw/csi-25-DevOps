@@ -1,0 +1,63 @@
+# Create a CI/CD Pipeline to Build a .NET Application and Deploy it to Azure App Service
+
+## 📚 Resources
+- [YouTube Video](https://www.youtube.com/watch?v=o9OpFMQMSHw)
+- [Blog Guide](https://ougabriel.medium.com/deploy-a-net-application-using-azure-ci-cd-pipeline-and-0eea18aedbb5)
+
+---
+
+## ✅ Prerequisites
+
+- Azure App Service (Web App)
+- Azure Resource Group
+- Azure Service Connection in DevOps
+- A .NET project (e.g., .NET 6/7)
+- Deployment credentials or publish profile (if not using a service connection)
+
+---
+
+## ✅ Steps to Implement the Pipeline
+
+### 1. Define the YAML Pipeline (`azure-pipelines.yml`)
+
+```yaml
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.x.x'
+
+- script: dotnet build MyApp.sln --configuration $(buildConfiguration)
+  displayName: 'Build .NET App'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+
+# 2. Release Pipeline to Azure App Service (Optional if using multi-stage)
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'My Azure Subscription'
+    appType: 'webApp'
+    appName: 'my-dotnet-webapp'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'

@@ -1,0 +1,66 @@
+# Create a CI/CD Pipeline to Build and Push a Docker Image to ACR and Deploy to ACI
+
+---
+
+## ✅ Prerequisites
+
+- Azure Container Registry (ACR)
+- Azure Container Instance (ACI)
+- Dockerfile in your application repository
+- Azure Service Connection in DevOps
+
+---
+
+## ✅ Steps to Implement the Pipeline
+
+### 1. Build and Push Docker Image to ACR
+
+```yaml
+trigger:
+- main
+
+variables:
+  imageName: 'myapp'
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildAndPush
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'ACR-Service-Connection'
+        repository: '$(imageName)'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          $(Build.BuildId)
+
+# 2. Deploy Image to Azure Container Instance (ACI)
+
+- stage: Deploy
+  jobs:
+  - job: DeployACI
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'ACR-Service-Connection'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          az container create \
+            --resource-group myResourceGroup \
+            --name myContainerInstance \
+            --image myacr.azurecr.io/myapp:$(Build.BuildId) \
+            --cpu 1 \
+            --memory 1 \
+            --registry-login-server myacr.azurecr.io \
+            --registry-username $(ACR_USERNAME) \
+            --registry-password $(ACR_PASSWORD) \
+            --dns-name-label myaciapp$(Build.BuildId) \
+            --ports 80
+

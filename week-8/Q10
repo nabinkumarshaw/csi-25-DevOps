@@ -1,0 +1,41 @@
+# Create a CI/CD Pipeline to Build a React Application and Deploy it to an Azure Virtual Machine
+
+---
+
+## ✅ Prerequisites
+
+- Azure Virtual Machine (Linux or Windows)
+- SSH access to the VM (private key or password)
+- React app repository with a `build` script (`npm run build`)
+- Azure DevOps SSH Service Connection configured
+
+---
+
+## ✅ Steps to Implement the Pipeline
+
+### 1. Define Your Azure DevOps Pipeline (`azure-pipelines.yml`)
+
+```yaml
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run build
+  displayName: 'Install dependencies and build React app'
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'AzureVM-SSH-Connection'  # Service connection name
+    sourceFolder: '$(System.DefaultWorkingDirectory)/build'
+    contents: '**'
+    targetFolder: '/var/www/h

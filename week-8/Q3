@@ -1,0 +1,40 @@
+# Use Variable and Task Groups in Pipelines and Set Scopes for Different Stages
+
+---
+
+## ✅ Steps to Use Variable Groups
+
+### 1. Create a Variable Group
+
+- Go to **Pipelines > Library**.
+- Click on **+ Variable group**.
+- Add name and variables (e.g., `env`, `buildConfig`, etc.).
+- Optionally link secrets from Azure Key Vault.
+- Save the group.
+
+### 2. Link Variable Group to YAML Pipeline
+
+```yaml
+variables:
+- group: my-variable-group
+
+# ✅ Set Scope for Different Stages
+
+stages:
+- stage: Build
+  variables:
+    - name: buildEnv
+      value: 'build-stage'
+  jobs:
+  - job: BuildJob
+    steps:
+    - script: echo $(buildEnv)
+
+- stage: Deploy
+  variables:
+    - name: deployEnv
+      value: 'deploy-stage'
+  jobs:
+  - job: DeployJob
+    steps:
+    - script: echo $(deployEnv)

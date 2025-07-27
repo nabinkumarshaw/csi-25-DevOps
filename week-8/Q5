@@ -1,0 +1,43 @@
+# Create a Linux or Windows Self-Hosted Agent in Azure DevOps
+
+---
+
+## ✅ What is a Self-Hosted Agent?
+
+A **self-hosted agent** is an agent that you install and run on your own machines (Linux or Windows) to execute Azure DevOps pipeline jobs instead of using Microsoft-hosted agents.
+
+---
+
+## ✅ Steps to Create a Self-Hosted Agent
+
+### 1. Navigate to Agent Pools
+
+- Go to **Project Settings > Agent Pools**.
+- Use the default pool or create a new one.
+
+---
+
+### 2. Download and Configure the Agent
+
+#### 🐧 For Linux:
+
+```bash
+# Download the agent package
+wget https://vstsagentpackage.azureedge.net/agent/3.225.0/vsts-agent-linux-x64-3.225.0.tar.gz
+
+# Extract it
+tar zxvf vsts-agent-linux-x64-3.225.0.tar.gz
+
+# Navigate into the extracted folder
+cd myagent
+
+# Configure the agent
+./config.sh --url https://dev.azure.com/YOUR_ORG \
+            --auth pat \
+            --token YOUR_PAT \
+            --pool default \
+            --agent self-hosted-agent
+
+# Install and start the service
+sudo ./svc.sh install
+sudo ./svc.sh start
